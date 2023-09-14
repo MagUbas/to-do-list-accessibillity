@@ -5,10 +5,11 @@ function TaskGroup(props) {
     <div>
       <h3>{props.date}</h3>
       <ul>
-        {/* component Task*/}
-        <Task />
-        <li>Task 2 Complete</li>
-        <li>Task 3</li>
+        {props.taskList.map((elem) => {
+          return (
+            <Task key={elem.text} text={elem.text} complate={elem.complate} />
+          );
+        })}
       </ul>
     </div>
   );

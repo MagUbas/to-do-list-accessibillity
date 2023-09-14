@@ -23,7 +23,13 @@ function App() {
       <h2>This week</h2>
       <button>Add a task</button>
       {taskData.map((elem) => {
-        return <TaskGroup date={elem.date} taskList={elem.taskList} />;
+        return (
+          <TaskGroup
+            key={elem.date}
+            date={elem.date}
+            taskList={elem.taskList}
+          />
+        );
       })}
     </div>
   );
