@@ -10,7 +10,7 @@ function Task(props) {
        
         <label for={props.text}>{props.text}</label>
       </div> */}
-      <label className={classes.taskInputGroup} for={props.text}>
+      <label className={classes.taskInputGroup} htmlFor={props.text}>
         <input type="checkbox" id={props.text}></input>
         <span className={classes.taskInputGroupCheckmark}></span>
 

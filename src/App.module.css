@@ -1,0 +1,30 @@
+body{
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: rgb(245, 245, 245);
+    color: rgb(18, 18, 68);
+}
+
+.app{
+    width: 80vw;
+    margin: auto;
+ margin-top: 3rem;
+
+
+ 
+}
+
+.appAddTaskButton{
+    display: flex;
+    align-items: center;
+    
+    background: transparent;
+    border: none !important;
+    float: right;
+    color: rgb(250, 91, 33);
+    font-weight: 700;
+}
+.appAddTaskButton:focus,.appAddTaskButton:hover{
+
+    color: rgb(18, 18, 68);
+    
+}

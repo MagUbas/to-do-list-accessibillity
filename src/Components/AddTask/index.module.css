@@ -1,0 +1,41 @@
+.addTask{
+    display: flex;
+    flex-direction: column;
+    
+}
+.addTaskError{
+    color: rgb(227,18,106); 
+}
+.addTaskInput{
+    border-style: none;
+
+    font-family: inherit;
+  
+   padding:  0.5rem;
+    min-height: 7rem;
+    width: 100%;
+    font-family: inherit;
+    border-width: 2px;
+    border-style: solid;
+    border-image: linear-gradient(to right,  rgba(227,18,106,1), rgba(255,136,0,1)) 1;
+  box-sizing: border-box;
+  font-size: 2rem;
+}
+.addTaskConfirm{
+    margin-top: 1rem;
+    border-radius:0.7rem;
+    height: 3rem;
+    font-family: inherit;
+    font-size: 1.3rem;
+    background: rgb(227,18,106);
+    background: linear-gradient(90deg, rgba(227,18,106,1) 0%, rgba(255,136,0,1) 100%);
+    color: white;
+    border: none !important;
+}
+.addTaskConfirm:disabled{
+    background: grey;
+}
+
+.addTaskLabel{
+    margin-top: 15px;
+}
