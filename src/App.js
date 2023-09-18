@@ -39,9 +39,11 @@ function App() {
 
   const handleAddTask = (date, task, id) => {
     let tempTaskData = JSON.parse(JSON.stringify(taskData));
-    const index = findTask(id);
-
-    if (index.indexOfDate === -1) {
+    const index = tempTaskData.findIndex(
+      (elem) => elem.date === date.toDateString()
+    );
+    if (index === -1) {
+      console.log("add new date");
       tempTaskData.push({
         date: date.toDateString(),
         taskList: [{ id: id, text: task, complate: false }],
@@ -50,7 +52,7 @@ function App() {
 
       setAddTaskActive(false);
     } else {
-      tempTaskData[index.indexOfDate].taskList.push({
+      tempTaskData[index].taskList.push({
         id: id,
         text: task,
         complate: false,
@@ -103,6 +105,7 @@ function App() {
           handleAddtask={handleAddTask}
           handleIfTaskIsNew={handleIfTaskIsNew}
           errorAddTask={errorAddTask}
+          handleClose={() => setAddTaskActive(false)}
         />
       ) : (
         <>

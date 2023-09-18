@@ -49,9 +49,12 @@ function AddTask(props) {
       <button
         className={classes.addTaskConfirm}
         onClick={() => props.handleAddtask(date, task, randomId())}
-        disabled={props.errorAddTask}
+        disabled={!(!props.errorAddTask && task !== "")}
       >
         Add new task!
+      </button>
+      <button className={classes.addTaskConfirm} onClick={props.handleClose}>
+        Close
       </button>
     </div>
   );
