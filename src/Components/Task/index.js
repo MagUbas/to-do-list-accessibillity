@@ -4,25 +4,29 @@ import { BiPencil, BiTrash } from "react-icons/bi";
 
 function Task(props) {
   return (
-    <li className={classes.task} disabled={props.complate}>
+    <li
+      className={`${classes.task} ${
+        props.complate ? classes.taskComplate : null
+      }`}
+    >
       {/* jak zrobic,zeby wyswietlalo sie na key on title */}
-      {/* <div className={classes.taskInputGroup}>
-       
-        <label for={props.text}>{props.text}</label>
-      </div> */}
-      <label className={classes.taskInputGroup} htmlFor={props.text}>
-        <input type="checkbox" id={props.text}></input>
-        <span className={classes.taskInputGroupCheckmark}></span>
 
+      <label className={classes.taskInputGroup} htmlFor={props.text}>
+        <input
+          type="checkbox"
+          id={props.text}
+          checked={props.complate}
+          onChange={props.handleChangeComplate(props.text)}
+        ></input>
         {props.text}
       </label>
 
       <div className={classes.taskButtonGroup}>
-        <IconContext.Provider value={{ color: "white", size: "1.7rem" }}>
-          <button title="Edit">
+        <IconContext.Provider value={{ size: "1.7rem" }}>
+          <button title="Edit" onClick={props.handleEdit}>
             <BiPencil />
           </button>
-          <button title="Delete">
+          <button title="Delete" onClick={props.handleDelete}>
             <BiTrash />
           </button>
         </IconContext.Provider>

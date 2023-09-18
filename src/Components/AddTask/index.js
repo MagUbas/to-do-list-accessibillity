@@ -16,6 +16,11 @@ function AddTask(props) {
     setDate(event);
     props.handleIfTaskIsNew(event, task);
   };
+  const randomId = function (length = 6) {
+    return Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+  };
 
   return (
     <div className={classes.addTask}>
@@ -43,7 +48,7 @@ function AddTask(props) {
 
       <button
         className={classes.addTaskConfirm}
-        onClick={() => props.handleAddtask(date, task)}
+        onClick={() => props.handleAddtask(date, task, randomId())}
         disabled={props.errorAddTask}
       >
         Add new task!

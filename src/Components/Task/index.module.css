@@ -13,28 +13,26 @@ border-radius:0.7rem;
 padding: 0 1rem ;
 color: white;
 }
+
+
 .taskInputGroup{
-    font-size: 1rem;
- 
-  line-height: 1.1;
+  font-size: 1.2rem;
+
   display: grid;
-  grid-template-columns: 1em 0 auto;
-  gap: 0.5em; 
+  grid-template-columns: 1em  auto;
+  gap: 1rem; 
+  align-items: center; 
 }
 .taskInputGroup input[type="checkbox"] {
     -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
   margin: 0;
-
   font: inherit;
   color: currentColor;
   width: 1.20rem;
   height: 1.20rem;
-  border: 0.20rem solid currentColor;
   border-radius: 0.60rem;
-  transform: translateY(-0.075em);
-  
 }
 
 
@@ -43,11 +41,10 @@ color: white;
     flex-direction: row;
 
 }
-.taskInputGroupCheckmark{
-    
-}
+
 
 .taskButtonGroup button {
+    color: white;
     padding: 0  ;
     margin-left: 0.5rem;
     background: transparent;
@@ -55,4 +52,19 @@ color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+.taskComplate{
+  background:white;
+  color:gray;
+  text-decoration: line-through;
+
+}
+.taskComplate button{
+  color:gray;
+}
+
+.taskComplate input[type="checkbox"]{
+  background-color: gray;
 }
