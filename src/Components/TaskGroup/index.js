@@ -2,9 +2,12 @@ import Task from "../Task/index";
 import classes from "./index.module.css";
 
 function TaskGroup(props) {
-  const handleChangeComplate = (text) => {
-    console.log("change");
-    // props.handleChangeComplate(props.date, text);
+  const handleComplateTask = (id) => {
+    props.handleComplateTask(id);
+  };
+
+  const handleDeleteTask = (id) => {
+    props.handleDeleteTask(id);
   };
   return (
     <div className={classes.taskGroup}>
@@ -14,9 +17,11 @@ function TaskGroup(props) {
           return (
             <Task
               key={elem.id}
+              id={elem.id}
               text={elem.text}
               complate={elem.complate}
-              handleChangeComplate={handleChangeComplate}
+              handleComplateTask={handleComplateTask}
+              handleDeleteTask={handleDeleteTask}
             />
           );
         })}

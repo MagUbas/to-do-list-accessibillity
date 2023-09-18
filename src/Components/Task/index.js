@@ -3,6 +3,13 @@ import { IconContext } from "react-icons";
 import { BiPencil, BiTrash } from "react-icons/bi";
 
 function Task(props) {
+  const handleChange = () => {
+    props.handleComplateTask(props.id);
+  };
+  const handleDelete = () => {
+    props.handleDeleteTask(props.id);
+  };
+
   return (
     <li
       className={`${classes.task} ${
@@ -16,7 +23,7 @@ function Task(props) {
           type="checkbox"
           id={props.text}
           checked={props.complate}
-          onChange={props.handleChangeComplate(props.text)}
+          onChange={handleChange}
         ></input>
         {props.text}
       </label>
@@ -26,7 +33,7 @@ function Task(props) {
           <button title="Edit" onClick={props.handleEdit}>
             <BiPencil />
           </button>
-          <button title="Delete" onClick={props.handleDelete}>
+          <button title="Delete" onClick={handleDelete}>
             <BiTrash />
           </button>
         </IconContext.Provider>
