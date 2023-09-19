@@ -11,13 +11,16 @@ const data = [
       { id: "245sd", text: "Test text 15", complate: true },
       { id: "345xd", text: "Test text 4", complate: false },
     ],
+    complate: false,
   },
   {
     date: "Wed Sep 13 2023",
     taskList: [{ id: "325sd", text: "Test text 7", complate: false }],
+    complate: false,
   },
 ];
 function App() {
+  // const [loading, setLoading] = useState(false);
   const [addTaskActive, setAddTaskActive] = useState(false);
   const [taskData, setTaskData] = useState(data);
   const [errorAddTask, setErrorAddTask] = useState(false);
@@ -32,14 +35,25 @@ function App() {
       return new Date(a.date) - new Date(b.date);
     });
     setTaskData(tempTaskData);
-    console.log("sorting by date");
   }, [taskData.length]);
+
   useEffect(() => {
     let tempTaskData = JSON.parse(JSON.stringify(taskData));
+    tempTaskData.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+
     tempTaskData.forEach((TaskGroup) => {
       TaskGroup.taskList.sort((a, b) => {
         return a.complate ? 1 : -1;
       });
+
+      if (new Date(TaskGroup.date) < new Date()) {
+        TaskGroup.complate = true;
+        TaskGroup.taskList.forEach((task) => {
+          task.complate = true;
+        });
+      }
     });
     setTaskData(tempTaskData);
   }, []);
@@ -115,6 +129,8 @@ function App() {
     } else {
       tempTaskData[index.indexOfDate].taskList.unshift(task);
     }
+    tempTaskData[index.indexOfDate].complate =
+      tempTaskData[index.indexOfDate].taskList[0].complate;
     setTaskData(tempTaskData);
   };
 
@@ -166,6 +182,7 @@ function App() {
                 handleEditTask={handleEditTask}
                 key={elem.date}
                 date={elem.date}
+                complate={elem.complate}
                 taskList={elem.taskList}
               />
             );

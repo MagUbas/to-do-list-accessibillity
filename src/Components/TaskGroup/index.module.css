@@ -1,5 +1,9 @@
 .taskGroup{
-   
+   color: rgb(227,18,106);
+}
+.taskGroupComplate{
+    color:gray;
+  text-decoration: line-through;
 }
 
 

@@ -12,7 +12,11 @@ function TaskGroup(props) {
     props.handleEditTask(id);
   };
   return (
-    <div className={classes.taskGroup}>
+    <div
+      className={`${classes.taskGroup} ${
+        props.complate ? classes.taskGroupComplate : null
+      }`}
+    >
       <h3>{props.date}</h3>
       <ul className={classes.taskList}>
         {props.taskList.map((elem) => {
