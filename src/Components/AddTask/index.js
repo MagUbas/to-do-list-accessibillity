@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function AddTask(props) {
-  const [date, setDate] = useState(new Date());
-  const [task, setTask] = useState("");
+  const [date, setDate] = useState(props.startingData.date);
+  const [task, setTask] = useState(props.startingData.task);
 
   const handleInputChange = (event) => {
     setTask(event.target.value);
@@ -53,9 +53,9 @@ function AddTask(props) {
       >
         Add new task!
       </button>
-      <button className={classes.addTaskConfirm} onClick={props.handleClose}>
+      {/* <button className={classes.addTaskConfirm} onClick={props.handleClose}>
         Close
-      </button>
+      </button> */}
     </div>
   );
 }

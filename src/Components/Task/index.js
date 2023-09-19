@@ -9,6 +9,9 @@ function Task(props) {
   const handleDelete = () => {
     props.handleDeleteTask(props.id);
   };
+  const handleEdit = () => {
+    props.handleEditTask(props.id);
+  };
 
   return (
     <li
@@ -30,7 +33,7 @@ function Task(props) {
 
       <div className={classes.taskButtonGroup}>
         <IconContext.Provider value={{ size: "1.7rem" }}>
-          <button title="Edit" onClick={props.handleEdit}>
+          <button title="Edit" onClick={handleEdit}>
             <BiPencil />
           </button>
           <button title="Delete" onClick={handleDelete}>

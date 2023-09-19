@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./App.module.css";
 import TaskGroup from "./Components/TaskGroup/index";
 import { BiPlus } from "react-icons/bi";
 import AddTask from "./Components/AddTask/index";
 const data = [
   {
-    date: new Date().toDateString(),
+    date: "Fri Sep 22 2023",
     taskList: [
       { id: "345zd", text: "Test text 5", complate: false },
       { id: "245sd", text: "Test text 15", complate: true },
@@ -13,7 +13,7 @@ const data = [
     ],
   },
   {
-    date: "Sat Sep 16 2023",
+    date: "Wed Sep 13 2023",
     taskList: [{ id: "325sd", text: "Test text 7", complate: false }],
   },
 ];
@@ -21,6 +21,28 @@ function App() {
   const [addTaskActive, setAddTaskActive] = useState(false);
   const [taskData, setTaskData] = useState(data);
   const [errorAddTask, setErrorAddTask] = useState(false);
+  const [startingData, setStartingData] = useState({
+    date: new Date(),
+    task: "",
+  });
+
+  useEffect(() => {
+    let tempTaskData = JSON.parse(JSON.stringify(taskData));
+    tempTaskData.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+    setTaskData(tempTaskData);
+    console.log("sorting by date");
+  }, [taskData.length]);
+  useEffect(() => {
+    let tempTaskData = JSON.parse(JSON.stringify(taskData));
+    tempTaskData.forEach((TaskGroup) => {
+      TaskGroup.taskList.sort((a, b) => {
+        return a.complate ? 1 : -1;
+      });
+    });
+    setTaskData(tempTaskData);
+  }, []);
 
   const findTask = (id) => {
     let indexOfDate = -1;
@@ -43,23 +65,23 @@ function App() {
       (elem) => elem.date === date.toDateString()
     );
     if (index === -1) {
-      console.log("add new date");
       tempTaskData.push({
         date: date.toDateString(),
         taskList: [{ id: id, text: task, complate: false }],
       });
-      setTaskData(tempTaskData);
-
-      setAddTaskActive(false);
     } else {
       tempTaskData[index].taskList.push({
         id: id,
         text: task,
         complate: false,
       });
-      setTaskData(tempTaskData);
-      setAddTaskActive(false);
     }
+    setTaskData(tempTaskData);
+    setAddTaskActive(false);
+    setStartingData({
+      date: new Date(),
+      task: "",
+    });
   };
   const handleIfTaskIsNew = (date, task) => {
     let tempTaskData = JSON.parse(JSON.stringify(taskData));
@@ -84,9 +106,15 @@ function App() {
   const handleComplateTask = (id) => {
     const index = findTask(id);
     let tempTaskData = JSON.parse(JSON.stringify(taskData));
+    let task = tempTaskData[index.indexOfDate].taskList[index.indexOfTask];
+    task.complate = !task.complate;
 
-    tempTaskData[index.indexOfDate].taskList[index.indexOfTask].complate =
-      !tempTaskData[index.indexOfDate].taskList[index.indexOfTask].complate;
+    tempTaskData[index.indexOfDate].taskList.splice(index.indexOfTask, 1);
+    if (task.complate) {
+      tempTaskData[index.indexOfDate].taskList.push(task);
+    } else {
+      tempTaskData[index.indexOfDate].taskList.unshift(task);
+    }
     setTaskData(tempTaskData);
   };
 
@@ -96,12 +124,26 @@ function App() {
     tempTaskData[index.indexOfDate].taskList.splice(index.indexOfTask, 1);
     setTaskData(tempTaskData);
   };
+
+  const handleEditTask = (id) => {
+    const index = findTask(id);
+    let tempTaskData = JSON.parse(JSON.stringify(taskData));
+
+    setStartingData({
+      date: new Date(tempTaskData[index.indexOfDate].date),
+      task: tempTaskData[index.indexOfDate].taskList[index.indexOfTask].text,
+    });
+    setAddTaskActive(true);
+    handleDeleteTask(id);
+  };
+
   return (
     <div className={classes.app}>
       <h1>To Do List</h1>
 
       {addTaskActive ? (
         <AddTask
+          startingData={startingData}
           handleAddtask={handleAddTask}
           handleIfTaskIsNew={handleIfTaskIsNew}
           errorAddTask={errorAddTask}
@@ -121,6 +163,7 @@ function App() {
               <TaskGroup
                 handleComplateTask={handleComplateTask}
                 handleDeleteTask={handleDeleteTask}
+                handleEditTask={handleEditTask}
                 key={elem.date}
                 date={elem.date}
                 taskList={elem.taskList}

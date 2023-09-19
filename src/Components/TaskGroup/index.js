@@ -5,9 +5,11 @@ function TaskGroup(props) {
   const handleComplateTask = (id) => {
     props.handleComplateTask(id);
   };
-
   const handleDeleteTask = (id) => {
     props.handleDeleteTask(id);
+  };
+  const handleEditTask = (id) => {
+    props.handleEditTask(id);
   };
   return (
     <div className={classes.taskGroup}>
@@ -22,6 +24,7 @@ function TaskGroup(props) {
               complate={elem.complate}
               handleComplateTask={handleComplateTask}
               handleDeleteTask={handleDeleteTask}
+              handleEditTask={handleEditTask}
             />
           );
         })}
