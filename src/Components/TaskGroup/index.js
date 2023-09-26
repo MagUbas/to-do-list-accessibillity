@@ -11,13 +11,57 @@ function TaskGroup(props) {
   const handleEditTask = (id) => {
     props.handleEditTask(id);
   };
+
+  const dateFormat = () => {
+    const weekday = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const date = new Date(props.date);
+    const nth = (d) => {
+      if (d > 3 && d < 21) return "th";
+      switch (d % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+    return `${weekday[date.getDay()]} ${date.getDate()}${nth(date.getDate())} ${
+      month[date.getMonth()]
+    }`;
+  };
+
   return (
     <div
       className={`${classes.taskGroup} ${
         props.complate ? classes.taskGroupComplate : null
       }`}
     >
-      <h3>{props.date}</h3>
+      <h3>{dateFormat()}</h3>
       <ul className={classes.taskList}>
         {props.taskList.map((elem) => {
           return (
