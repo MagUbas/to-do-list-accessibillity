@@ -30,6 +30,11 @@ function AddTask(props) {
         onChange={handleDataChange}
         minDate={new Date()}
         todayButton="Today"
+        dayClassName={(elem) =>
+          elem.toDateString() === date.toDateString()
+            ? classes.selected_day
+            : null
+        }
       />
       <label className={classes.addTaskLabel}>
         What's on your mind?

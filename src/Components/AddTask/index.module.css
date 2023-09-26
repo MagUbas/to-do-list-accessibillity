@@ -39,3 +39,12 @@
 .addTaskLabel{
     margin-top: 15px;
 }
+
+.selected_day {
+    background-color: rgb(250, 91, 33) !important;
+    background: linear-gradient(90deg, rgba(227,18,106,1) 30%, rgba(255,136,0,1) 100%);
+  }
+  
+.selected_day:hover,.selected_day:focus{
+   opacity: 0.8;
+  }
