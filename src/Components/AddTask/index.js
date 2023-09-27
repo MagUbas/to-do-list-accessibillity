@@ -1,22 +1,49 @@
 import classes from "./index.module.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function AddTask(props) {
   const [date, setDate] = useState(props.startingData.date);
   const [task, setTask] = useState(props.startingData.task);
+  const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  const taskData = useSelector((state) => state.toDoList.data);
+
+  const handleIfTaskIsNew = (value, date) => {
+    let newError = "";
+    const findIndex = taskData.findIndex(
+      (taskGroup) => taskGroup.date === date.toDateString()
+    );
+
+    if (findIndex >= 0) {
+      if (
+        taskData[findIndex].taskList.findIndex((elem) => elem.text === value) >=
+        0
+      ) {
+        newError = "This task is already on your list";
+      }
+    }
+    return newError;
+  };
 
   const handleInputChange = (event) => {
-    event.preventDefault();
+    let newError = handleIfTaskIsNew(event.target.value, date);
+    setError(newError);
+
+    if (event.target.value.length >= 30) {
+      setInfo("This task have the maximum length");
+    } else {
+      setInfo("");
+    }
+
     setTask(event.target.value);
-    props.handleIfTaskIsNew(date, event.target.value);
   };
 
   const handleDataChange = (event) => {
-    event.preventDefault();
+    setError(handleIfTaskIsNew(task, event));
     setDate(event);
-    props.handleIfTaskIsNew(event, task);
   };
   const randomId = function (length = 6) {
     return Math.random()
@@ -25,7 +52,7 @@ function AddTask(props) {
   };
 
   const handleAddtask = () => {
-    if (!props.errorAddTask && task !== "") {
+    if (error === "" && task !== "") {
       props.handleAddtask(date, task, randomId());
     }
   };
@@ -38,11 +65,13 @@ function AddTask(props) {
         onChange={handleDataChange}
         minDate={new Date()}
         todayButton="Today"
-        dayClassName={(elem) =>
-          elem.toDateString() === date.toDateString()
+        dayClassName={(elem) => {
+          return elem.toDateString() === date.toDateString()
             ? classes.selected_day
-            : null
-        }
+            : elem.getDate() === date.getDate() && elem > date
+            ? classes.day
+            : null;
+        }}
       />
       <label className={classes.addTaskLabel}>
         What's on your mind?
@@ -50,23 +79,20 @@ function AddTask(props) {
           id="task"
           name="task"
           value={task}
+          maxLength="30"
           onChange={handleInputChange}
           className={classes.addTaskInput}
         />
       </label>
 
-      <p className={classes.addTaskError}>
-        {props.errorAddTask ? "This task is already on your list" : " "}
-      </p>
+      <p className={classes.addTaskError}>{error === "" ? info : error}</p>
 
       <button
         className={`${classes.addTaskConfirm} ${
-          !(!props.errorAddTask && task !== "")
-            ? classes.addTaskConfirmDisabled
-            : null
+          !(error === "" && task !== "") ? classes.addTaskConfirmDisabled : null
         }`}
         onClick={handleAddtask}
-        aria-disabled={!(!props.errorAddTask && task !== "")}
+        aria-disabled={error !== "" || task === ""}
       >
         Add new task!
       </button>

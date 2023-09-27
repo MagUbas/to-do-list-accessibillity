@@ -73,7 +73,3 @@ color: white;
   color:gray;
 } 
 
-.buttonDisabled:hover,.buttonDisabled:focus{
-  color:gray !important;
-  cursor: not-allowed !important;
-}

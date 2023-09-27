@@ -16,7 +16,6 @@ function App() {
   const dispatch = useDispatch();
 
   const [addTaskActive, setAddTaskActive] = useState(false);
-  const [errorAddTask, setErrorAddTask] = useState(false);
   const [startingData, setStartingData] = useState({
     date: new Date(),
     task: "",
@@ -61,25 +60,6 @@ function App() {
       task: "",
     });
   };
-  const handleIfTaskIsNew = (date, task) => {
-    let tempTaskData = JSON.parse(JSON.stringify(taskData));
-    const findIndex = tempTaskData.findIndex(
-      (taskGroup) => taskGroup.date === date.toDateString()
-    );
-    let ifRepetiveTask;
-
-    if (findIndex === -1) {
-      ifRepetiveTask = false;
-    } else {
-      ifRepetiveTask =
-        tempTaskData[findIndex].taskList.findIndex(
-          (elem) => elem.text === task
-        ) === -1
-          ? false
-          : true;
-    }
-    setErrorAddTask(ifRepetiveTask);
-  };
 
   const handleComplateTask = (id) => {
     dispatch(complateTask(id));
@@ -117,8 +97,6 @@ function App() {
         <AddTask
           startingData={startingData}
           handleAddtask={handleAddTask}
-          handleIfTaskIsNew={handleIfTaskIsNew}
-          errorAddTask={errorAddTask}
           handleClose={() => setAddTaskActive(false)}
         />
       ) : (

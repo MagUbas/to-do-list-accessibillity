@@ -24,6 +24,7 @@ function Task(props) {
     >
       <label className={classes.taskInputGroup} htmlFor={props.text}>
         <input
+          aria-label="checkbox"
           type="checkbox"
           id={props.text}
           aria-checked={props.complate}
@@ -34,15 +35,12 @@ function Task(props) {
 
       <div className={classes.taskButtonGroup}>
         <IconContext.Provider value={{ size: "1.7rem" }}>
-          <button
-            title="Edit"
-            onClick={handleEdit}
-            aria-disabled={props.complate}
-            className={`${props.complate ? classes.buttonDisabled : null}`}
-          >
-            <BiPencil />
-          </button>
-          <button title="Delete" onClick={handleDelete}>
+          {props.complate ? null : (
+            <button aria-label="Edit" onClick={handleEdit}>
+              <BiPencil />
+            </button>
+          )}
+          <button aria-label="Delete" onClick={handleDelete}>
             <BiTrash />
           </button>
         </IconContext.Provider>

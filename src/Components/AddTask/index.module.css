@@ -58,3 +58,8 @@
 .selected_day:hover,.selected_day:focus{
    opacity: 0.8;
   }
+
+  .day{
+    background: none !important;
+    color: black !important;
+  }
