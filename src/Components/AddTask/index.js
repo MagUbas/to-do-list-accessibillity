@@ -8,11 +8,13 @@ function AddTask(props) {
   const [task, setTask] = useState(props.startingData.task);
 
   const handleInputChange = (event) => {
+    event.preventDefault();
     setTask(event.target.value);
     props.handleIfTaskIsNew(date, event.target.value);
   };
 
   const handleDataChange = (event) => {
+    event.preventDefault();
     setDate(event);
     props.handleIfTaskIsNew(event, task);
   };
@@ -20,6 +22,12 @@ function AddTask(props) {
     return Math.random()
       .toString(36)
       .substring(2, length + 2);
+  };
+
+  const handleAddtask = () => {
+    if (!props.errorAddTask && task !== "") {
+      props.handleAddtask(date, task, randomId());
+    }
   };
 
   return (
@@ -52,15 +60,16 @@ function AddTask(props) {
       </p>
 
       <button
-        className={classes.addTaskConfirm}
-        onClick={() => props.handleAddtask(date, task, randomId())}
-        disabled={!(!props.errorAddTask && task !== "")}
+        className={`${classes.addTaskConfirm} ${
+          !(!props.errorAddTask && task !== "")
+            ? classes.addTaskConfirmDisabled
+            : null
+        }`}
+        onClick={handleAddtask}
+        aria-disabled={!(!props.errorAddTask && task !== "")}
       >
         Add new task!
       </button>
-      {/* <button className={classes.addTaskConfirm} onClick={props.handleClose}>
-        Close
-      </button> */}
     </div>
   );
 }

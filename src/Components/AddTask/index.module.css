@@ -32,8 +32,18 @@
     color: white;
     border: none !important;
 }
-.addTaskConfirm:disabled{
-    background: grey;
+
+.addTaskConfirm:focus,.addTaskConfirm:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.addTaskConfirmDisabled{
+   
+    background: gray;
+}
+.addTaskConfirmDisabled:focus,.addTaskConfirmDisabled:hover{
+    cursor:not-allowed;
+    opacity: 1;
 }
 
 .addTaskLabel{

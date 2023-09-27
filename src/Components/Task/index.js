@@ -10,7 +10,10 @@ function Task(props) {
     props.handleDeleteTask(props.id);
   };
   const handleEdit = () => {
-    props.handleEditTask(props.id);
+    console.log(props.complate);
+    if (!props.complate) {
+      props.handleEditTask(props.id);
+    }
   };
 
   return (
@@ -19,13 +22,11 @@ function Task(props) {
         props.complate ? classes.taskComplate : null
       }`}
     >
-      {/* jak zrobic,zeby wyswietlalo sie na key on title */}
-
       <label className={classes.taskInputGroup} htmlFor={props.text}>
         <input
           type="checkbox"
           id={props.text}
-          checked={props.complate}
+          aria-checked={props.complate}
           onChange={handleChange}
         ></input>
         {props.text}
@@ -33,7 +34,12 @@ function Task(props) {
 
       <div className={classes.taskButtonGroup}>
         <IconContext.Provider value={{ size: "1.7rem" }}>
-          <button title="Edit" onClick={handleEdit}>
+          <button
+            title="Edit"
+            onClick={handleEdit}
+            aria-disabled={props.complate}
+            className={`${props.complate ? classes.buttonDisabled : null}`}
+          >
             <BiPencil />
           </button>
           <button title="Delete" onClick={handleDelete}>

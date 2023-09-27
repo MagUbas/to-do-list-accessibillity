@@ -36,18 +36,17 @@ color: white;
 }
 .taskInputGroup input[type="checkbox"]:hover, .taskInputGroup input[type="checkbox"]:focus {
   background-color: rgb(212, 212, 212);;
+  cursor: pointer;
 }
 .taskComplate input[type="checkbox"]{
   background-color: gray;
 }
-
 
 .taskButtonGroup{
     display: flex;
     flex-direction: row;
 
 }
-
 
 .taskButtonGroup button {
     color: white;
@@ -61,6 +60,7 @@ color: white;
 }
 .taskButtonGroup button:hover,.taskButtonGroup button:focus{
   color: rgb(212, 212, 212);
+  cursor: pointer;
 }
 
 .taskComplate{
@@ -69,7 +69,11 @@ color: white;
   text-decoration: line-through;
 
 }
-.taskComplate button{
+ .taskComplate button{
   color:gray;
-}
+} 
 
+.buttonDisabled:hover,.buttonDisabled:focus{
+  color:gray !important;
+  cursor: not-allowed !important;
+}
